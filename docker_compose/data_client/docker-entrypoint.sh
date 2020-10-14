@@ -2,7 +2,7 @@
 
 case "$1" in
   load)
-    bash load_data.sh
+    bash load_data_mongo.sh
     ;;
   *)
     exec "$@"
