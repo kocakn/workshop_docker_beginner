@@ -82,10 +82,64 @@ Creating data-cli_mongo-cli_run ... done
 ____
 
 ### 6. Дополнительные испробованные команды
+
+Основная
 ```
 SOURCE_DIR=$(pwd) docker-compose --project-name data-cli -f docker-compose.yml run --name mongo-client --rm mongo-cli mongo db.find()
+```
+Команда 6.1
+```
 SOURCE_DIR=$(pwd) docker-compose --project-name data-cli -f docker-compose.yml run --name mongo-client --rm mongo-cli mongo "SELECT COUNT(*) FROM tags;"
+```
+Вывод
+```
+Creating data-cli_mongo-cli_run ... done
+MongoDB shell version v4.1.6
+2020-10-13T16:43:12.275+0000 F -        [main] exception: Database name cannot have reserved characters for mongodb:// URL: mongodb://127.0.0.1:27017/SELECT%20COUNT%28%2A%29%20FROM%20tags%3B
+2020-10-13T16:43:12.275+0000 E -        [main] exiting with code 1
+```
+Команда 6.2
+```
 SOURCE_DIR=$(pwd) docker-compose --project-name data-cli -f docker-compose.yml run --name mongo-client --rm mongo-cli mongo "db.find()"
+```
+Вывод
+```
+Creating data-cli_mongo-cli_run ... done
+MongoDB shell version v4.1.6
+connecting to: mongodb://db.find%28%29:27017/test?gssapiServiceName=mongodb
+2020-10-13T16:51:45.205+0000 E QUERY    [js] Error: couldn't connect to server db.find():27017, connection attempt failed: HostNotFound: Could not find address for db.find():27017: SocketException: Host not found (authoritative) :
+connect@src/mongo/shell/mongo.js:328:13
+@(connect):1:6
+2020-10-13T16:51:45.209+0000 F -        [main] exception: connect failed
+2020-10-13T16:51:45.209+0000 E -        [main] exiting with code 1
+```
+Команда 6.3
+```
 SOURCE_DIR=$(pwd) docker-compose --project-name data-cli -f docker-compose.yml run --name mongo-client --rm mongo-cli mongo "db"
+```
+Вывод
+```
+Creating data-cli_mongo-cli_run ... done
+MongoDB shell version v4.1.6
+connecting to: mongodb://127.0.0.1:27017/db?gssapiServiceName=mongodb
+2020-10-13T16:55:54.479+0000 E QUERY    [js] Error: couldn't connect to server 127.0.0.1:27017, connection attempt failed: SocketException: Error connecting to 127.0.0.1:27017 :: caused by :: Connection refused :
+connect@src/mongo/shell/mongo.js:328:13
+@(connect):1:6
+2020-10-13T16:55:54.482+0000 F -        [main] exception: connect failed
+2020-10-13T16:55:54.482+0000 E -        [main] exiting with code 1
+```
+Команда 6.4
+```
 SOURCE_DIR=$(pwd) docker-compose --project-name data-cli -f docker-compose.yml run --name mongo-client --rm mongo-cli mongo db
+```
+Вывод
+```
+Creating data-cli_mongo-cli_run ... done
+MongoDB shell version v4.1.6
+connecting to: mongodb://127.0.0.1:27017/db?gssapiServiceName=mongodb
+2020-10-13T16:56:41.624+0000 E QUERY    [js] Error: couldn't connect to server 127.0.0.1:27017, connection attempt failed: SocketException: Error connecting to 127.0.0.1:27017 :: caused by :: Connection refused :
+connect@src/mongo/shell/mongo.js:328:13
+@(connect):1:6
+2020-10-13T16:56:41.628+0000 F -        [main] exception: connect failed
+2020-10-13T16:56:41.628+0000 E -        [main] exiting with code 1
 ```
