@@ -27,6 +27,13 @@ services:
     container_name: pg-cli
     ports:
         - "8889:8888"
+  mongo-cli:
+    image: mongo:4.1.6
+    volumes:
+      - "${SOURCE_DIR}/../data_store/raw_data:/usr/share/raw_data"
+    networks:
+      - proj_network
+    container_name: mongo-cli
 
 networks:
   proj_network:
